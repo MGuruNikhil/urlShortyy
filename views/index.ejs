@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>urlShortyy</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            color: white;
+        }
+        form {
+            display: flex;
+            justify-content: space-around;
+            width: 30%;
+        }
+        input, button {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>urlShortyy</h1>
+    <form action="/" method="post">
+        <input type="url" name="url" id="url">
+        <button type="submit">Go</button>
+    </form>
+    <% if(shortyy != "") { %>
+        <a href="<%= shortyy %>" target="_blank"><%= shortyy %></a>
+    <% } %>
+</body>
+</html>
