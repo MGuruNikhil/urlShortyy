@@ -1,4 +1,6 @@
 import express from "express";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import bodyParser from "body-parser";
 import { myUrl } from "./config.js";
 import {
@@ -12,6 +14,8 @@ import { fbApp } from "./fbConfig.js";
 
 const app = express();
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.set("views", path.join(__dirname, "views"));
 // Set the view engine to EJS
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
