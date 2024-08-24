@@ -45,6 +45,9 @@ app.get("/", async (req, res) => {
 
 app.post("/", async (req, res) => {
   const url = req.body.url;
+  if(url.includes(myUrl)){
+    return res.render("index", { shortyy: url });
+  }
   const docRef = doc(db, "urls", "mapping");
   const docSnap = await getDoc(docRef);
   let index = "";
