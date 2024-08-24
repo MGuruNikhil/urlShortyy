@@ -4,58 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>urlShortyy</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: black;
-            color: white;
+            background-color: #222831;
+            color: #EEEEEE;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
         }
         form {
             display: flex;
             justify-content: space-around;
-            width: 30%;
+            width: 40%;
         }
         input, button {
             padding-left: 10px;
             padding-right: 10px;
             padding-top: 5px;
             padding-bottom: 5px;
-            border-radius: 50px;
+            border-radius: 5px;
+            border: 1px solid #00ADB5;
         }
-
         input {
             width: 70%;
+            background-color: #393E46;
+            color: #EEEEEE;
         }
-
         button {
-            width: 20%;
-            background-color: white;
-            color: black;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
+            background-color: #00ADB5;
+            color: #222831;
         }
-
-        button:hover {
-            background-color: black;
-            color: white;
-        }
-
         h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 3rem;
         }
-
         a {
-            color: white;
+            color: #00ADB5;
             text-decoration: none;
         }
-
         a:hover {
             text-decoration: underline;
+        }
+        div {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .copy {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #00ADB5;
         }
     </style>
 </head>
@@ -66,7 +71,19 @@
         <button type="submit">Go</button>
     </form>
     <% if(shortyy != "") { %>
-        <a href="<%= shortyy %>" target="_blank"><%= shortyy %></a>
+        <div>
+            <a href="<%= shortyy %>" target="_blank"><%= shortyy %></a>
+            <button class="copy"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00ADB5"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg></button>
+        </div>
     <% } %>
+    <script>
+        const copy = document.querySelector('.copy');
+        copy.addEventListener('click', () => {
+            navigator.clipboard.writeText(copy.previousElementSibling.href);
+            copy.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>';
+            copy.disabled = true;
+            copy.style.cursor = 'default';
+        });
+    </script>
 </body>
 </html>

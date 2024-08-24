@@ -6,10 +6,10 @@
     <title>urlShortyy</title>
     <style>
         body {
-            background-color: black;
-            color: white;
+            background-color: #222831;
+            color: #EEEEEE;
+            font-family: 'Montserrat', sans-serif;
         }
-
         p {
             display: flex;
             flex-direction: column;
@@ -18,33 +18,26 @@
             height: 100vh;
             font-family: Arial, sans-serif;
         }
-
         a {
-            color: white;
+            color: #00ADB5;
             text-decoration: none;
         }
-
         a:hover {
             text-decoration: underline;
         }
-
         a::after {
             content: attr(href);
         }
-
         a::before {
             content: "redirecting to ";
         }
-
         a::after, a::before {
             display: block;
             margin-top: 1rem;
         }
-
         a::after {
             font-size: 0.8rem;
         }
-
         a::before {
             font-size: 1.2rem;
         }

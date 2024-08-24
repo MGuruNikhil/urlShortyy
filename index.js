@@ -8,8 +8,7 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setDoc,
-  collection,
+  setDoc
 } from "firebase/firestore";
 import { fbApp } from "./fbConfig.js";
 
@@ -20,6 +19,25 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = getFirestore(fbApp);
+
+function toAlphanumeric(num) {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let str = '';
+  while (num > 0) {
+    str = chars[num % 62] + str;
+    num = Math.floor(num / 62);
+  }
+  return str || '0';
+}
+
+function fromAlphanumeric(str) {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let num = 0;
+  for (let i = 0; i < str.length; i++) {
+    num = num * 62 + chars.indexOf(str[i]);
+  }
+  return num;
+}
 
 app.get("/", async (req, res) => {
   const index = req.query.i;
@@ -64,24 +82,26 @@ app.post("/", async (req, res) => {
       }
     }
     if (!flag) {
-      let newLastIndex = parseInt(result.lastIndex, 10) + 1;
-      result.lastIndex = newLastIndex.toString();
+      let newLastIndex = fromAlphanumeric(result.lastIndex) + 1;
+      let newIndex = toAlphanumeric(newLastIndex);
+      result.lastIndex = newIndex;
       urls.push({
         fullUrl: url,
-        index: newLastIndex.toString(),
+        index: newIndex,
       });
       await setDoc(doc(db, "urls", "mapping"), {
         list: urls,
         lastIndex: result.lastIndex,
       });
-      index = newLastIndex.toString();
+      index = newIndex;
     }
   } else {
+    let newIndex = toAlphanumeric(0);
     await setDoc(doc(db, "urls", "mapping"), {
-      list: [{ fullUrl: url, index: "0" }],
-      lastIndex: "0",
+      list: [{ fullUrl: url, index: newIndex }],
+      lastIndex: newIndex,
     });
-    index = "0";
+    index = newIndex;
   }
   const shortyy = `${myUrl}?i=${index}`;
   res.render("index", { shortyy });
